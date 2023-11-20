@@ -13,7 +13,7 @@ algod_address = "https://testnet-api.algonode.cloud"
 algod_token = ""
 algod_client = algod.AlgodClient(algod_token, algod_address)
 
-
+# # Function to generate Algorand account
 # def generate_algorand_account():
 #     private_key, address = account.generate_account()
 #     return private_key, address
@@ -22,7 +22,14 @@ algod_client = algod.AlgodClient(algod_token, algod_address)
 #     private_key, address = generate_algorand_account()
 #     print(f"Generated account - Address: {address}, Private Key: {private_key}")
 
-# 3 Algorand Account information used for the exam
+# In order to run this application with differe accounts you must:
+# 1. Uncomment the codes from line 16 to 23 and comment all other lines below,
+# This will generate two new accounts, save replace the addr1,addr2,addr3 and pk1,pk2,pk3 with relevant
+# addresses and private keys.
+# 2. Fund the accounts using https://bank.testnet.algorand.network/ or any other Algorand testnet dispenser
+# 3. Uncomment all other codes that were previously not commented and run the python file
+
+# Account details for user 1,2 and 3 below were saved after creation and have already been funded
 
 addr1 = "N73LTWPZRQ4QN4JQ2ED2IIIUGKSR23BMTNNUCIVFUHIMGOJ57BA2TUTPYU"
 pk1 = "WzlIWEnmpGAkcREIjAufYsIO8Db0mEzWeMDq4QpBHnJv9rnZ+Yw5BvEw0QekIRQypR1sLJtbQSKlodDDOT34QQ=="
@@ -38,6 +45,8 @@ pk3 = "uCylsc7qnbkFoj5fr4sHa1mGxjCL3z4MGKcZ/Bhe6waIcklRT7cFUEOixxBnQSWQ3daVWb2o4
 mn1 = mnemonic.from_private_key(pk1)
 mn2 = mnemonic.from_private_key(pk2)
 mn3 = mnemonic.from_private_key(pk3)
+
+################################################################################################
 
 # Account 1 creates a fractional NFT FRANFT with a total supply of 10 units
 
@@ -79,6 +88,7 @@ print(f"Result confirmed in round: {fractional_ASA_results['confirmed-round']}")
 fractional_nft_asset = fractional_ASA_results["asset-index"]
 print(f"Asset ID created: {fractional_nft_asset}")
 
+##################################################################################################
 
 # Opt-in transactions for addr2 and addr3
 # Account 2 opting in
@@ -113,6 +123,8 @@ print(f"Sent opt in transaction with txid: {optin_3_txid}")
 # Waiting for the transaction to be confirmed
 optin_3_results = transaction.wait_for_confirmation(algod_client, optin_3_txid, 4)
 print(f"Result confirmed in round: {optin_3_results['confirmed-round']}")
+
+###########################################################################################
 
 # Asset transfer transactions from account 1 to account(s) 2 & 3
 txn_2 = transaction.AssetTransferTxn(
@@ -152,7 +164,7 @@ print(f"Sent asset transfer to Address 3 transaction with txid: {stxn_3_txid}")
 stxn_3_results = transaction.wait_for_confirmation(algod_client, stxn_3_txid, 4)
 print(f"Result confirmed in round: {stxn_3_results['confirmed-round']}")
 
-
+##############################################################################################
 
 # List of holders with their private keys and addresses
 holders = [(pk1, addr1),
